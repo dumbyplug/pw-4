@@ -53,6 +53,7 @@ int alignment(char list[6][7]){
 
 	printf("Longest For %c, %d consecutive alingment(s)\n", 
 			longests_symbol, longest_alignment);
+	return longest_alignment + longests_symbol * 10;
 }
 
 int main(void){
