@@ -1,6 +1,4 @@
-#include <stdio.h>
-
-int alingment(char list[6][7]){
+int horizontal(char list[6][7]){
 	int i, j, align, longest_alignment = 0;
 	char symbol, longest_alignment_symbol;
 
@@ -20,6 +18,14 @@ int alingment(char list[6][7]){
 			}
 		}
 	}
+	printf("Longest For %c, %d consecutive alingment(s)\n", 
+			longest_alignment_symbol, longest_alignment);
+
+} // done
+
+int vertical(char list[6][7]){
+	int i, j, align, longest_alignment = 0;
+	char symbol, longest_alignment_symbol;
 	// vertical
 	for(j = 0; j < 7; j++){
 		align = 1;
@@ -36,6 +42,14 @@ int alingment(char list[6][7]){
 			}
 		}
 	}
+	printf("Longest For %c, %d consecutive alingment(s)\n", 
+			longest_alignment_symbol, longest_alignment);
+
+} // done
+
+int diagonal_l_r_b(char list[6][7]){
+	int i, j, align, longest_alignment = 0;
+	char symbol, longest_alignment_symbol;
 	// diagonal left-to-right bottom 
 	for(j = 0; j < 7 - 1; j++){
 		align = 1;
@@ -50,9 +64,17 @@ int alingment(char list[6][7]){
 				longest_alignment = align;
 				longest_alignment_symbol = list[i][i - j];
 			}
+			printf("%d %d\n", i, i - j);
 		}
+		printf("\n");
 	}
+	printf("Longest For %c, %d consecutive alingment(s)\n", 
+			longest_alignment_symbol, longest_alignment);
+} // done
 
+int diagonal_r_l_b(char list[6][7]){
+	int i, j, align, longest_alignment = 0;
+	char symbol, longest_alignment_symbol;
 	// diagonal left-to-right top
 	for(j = 6; j > 0; j--){
 		align = 1;
@@ -67,8 +89,17 @@ int alingment(char list[6][7]){
 				longest_alignment = align;
 				longest_alignment_symbol = list[i][12 - i - j];
 			}
+			printf("%d %d\n", i, 12 - i - j);
 		}
+		printf("\n");
 	}
+	printf("Longest For %c, %d consecutive alingment(s)\n", 
+			longest_alignment_symbol, longest_alignment);
+} // done
+
+int diagonal_l_r_t(char list[6][7]){
+	int i, j, align, longest_alignment = 0;
+	char symbol, longest_alignment_symbol;
 	// diagonal right-to-left bottom 
 	for(i = 1; i < 6; i++){
 		align = 1;
@@ -84,8 +115,20 @@ int alingment(char list[6][7]){
 				longest_alignment = align;
 				longest_alignment_symbol = list[j - i][j];
 			}
+			printf("%d %d\n", j - i, j);
 		}
+		printf("\n");
 	}
+
+	printf("Longest For %c, %d consecutive alingment(s)\n", 
+			longest_alignment_symbol, longest_alignment);
+} // done
+
+int diagonal_r_l_t(char list[6][7]){
+	int i, j, align, longest_alignment = 0;
+	char symbol, longest_alignment_symbol;
+	// diagonal right-to-left bottom 
+
 	for(i = 1; i < 6; i++){
 		align = 1;
 		for(j = 6 - i; j > 0; j--){
@@ -100,25 +143,13 @@ int alingment(char list[6][7]){
 				longest_alignment = align;
 				longest_alignment_symbol = list[6 - i - j][j];
 			}
+			printf("%d %d\n", 6 - i - j, j);
 		}
+		printf("\n");
 	}
+
+	printf("Longest For %c, %d consecutive alingment(s)\n", 
+			longest_alignment_symbol, longest_alignment);
 	return longest_alignment + longest_alignment_symbol * 10;
 } // done
 
-
-int main(void){
-    char grid[6][7]={
-        {' ', 'o', '*', '*', ' ', ' ', ' '},
-        {' ', '*', 'o', ' ', 'o', ' ', ' '},
-        {'*', ' ', ' ', 'o', ' ', ' ', ' '},
-        {' ', '*', ' ', ' ', 'o', 'o', 'o'},
-        {' ', 'o', '*', ' ', ' ', 'o', ' '},
-        {' ', '*', 'o', 'o', 'o', 'o', 'o'},
-    };
-
-	int longest = alingment(grid);
-
-	printf("For character '%c', %d alingment(s)\n", (char)(longest / 10), longest % 10);
-
-	return 0;
-}
