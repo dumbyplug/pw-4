@@ -12,7 +12,7 @@ void game(char player){
 	char run = 1;
 	int move;
 	while(run){
-		printf("\x1b[H");
+		printf("\x1b[H\x1b[2J");
 		showGrid(grid);
 
 		printf("\nPlayer %c's move: ", player);
