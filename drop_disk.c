@@ -1,4 +1,4 @@
-void drop_disk(char grid[6][7], int move, char character){
+int drop_disk(char grid[6][7], int move, char character){
     /*
     This function drops a disk into the aviable place in the grid if possible, if it's not possible it does nothing
     Input:
@@ -11,7 +11,7 @@ void drop_disk(char grid[6][7], int move, char character){
     for(int i = 5; i >= 0; i--){
         if(grid[i][move] == ' '){
             grid[i][move] = character;
-            break;
+            return i;
         }
     }
 }
