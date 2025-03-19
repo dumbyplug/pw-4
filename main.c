@@ -10,11 +10,13 @@ void game(char player){
 
 	char run = 1;
 	int move;
+	int *pmove = &move;
 	while(run){
 		showGrid(grid);
+
 		printf("\nPlayer %c's move: ", player);
-		scanf(" %d", &move);
-		printf("Hello, %p", &move);
+		scanf("%d", pmove);
+
 		if(is_move_possible(grid, move)) 
 			drop_disk(grid, move, player);
 
