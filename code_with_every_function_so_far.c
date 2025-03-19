@@ -399,6 +399,13 @@ void game_vs_ai(char player){
 
 int main(void){
 	//game starts with player (which is *)
-	game_vs_ai('*');
+	int answer;
+	printf("Do you want to play agains a human or a bot? Choose 1 or 2:\n1.human\n2.bot\n");
+	scanf("%d", &answer);
+	if (answer == 2){
+		game_vs_ai('*');
+	}else{
+		game('*');
+	}
 	return 0;
 }
