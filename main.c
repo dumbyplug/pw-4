@@ -1,11 +1,8 @@
-#include "alignment.c"
-#include "drop_disk.c"
-#include "move_possible.c"
 #include "create_show.c"
+#include "random_advice.c"
 
-#include <stdlib.h>
-
-void game(char player){
+char game(char player){
+	char initialSymbol = player;
 	char grid[6][7];
 	createGrid(grid);
 
@@ -15,6 +12,7 @@ void game(char player){
 		//printf("\x1b[H\x1b[2J");
 		showGrid(grid);
 
+		printf("You can play on %d\n", advanced_advice(grid, player) + 1);
 		printf("\nPlayer %c's move: ", player);
 		scanf("%d", &move);
 
@@ -33,6 +31,9 @@ void game(char player){
 		}
 
 	}
+	if(initialSymbol == '*')
+		return 'o';
+	return '*';
 }
 
 int main(void){
