@@ -1,79 +1,80 @@
-#include "create_show.c"
-#include "random_advice.c"
-#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "move_possible.c"
+#include "alignment.c"
+#include "drop_disk.c"
 
-char game(char player){
-	srand(time(NULL));
-	char initialSymbol = player;
-	char grid[6][7];
-	createGrid(grid);
-
-	char run = 1;
-	int move;
-	while(run){
-		printf("\x1b[H\x1b[2J");
-		showGrid(grid);
-
-		printf("You can play on %d\n", advanced_advice(grid, player) + 1);
-		printf("\nPlayer %c's move: ", player);
-		scanf("%d", &move);
-
-		if(is_move_possible(grid, move - 1)){
-			drop_disk(grid, move - 1, player);
-
-			if(alignment(grid, player) >= 4){
-				printf("\x1b[H\x1b[2J");
-				showGrid(grid);
-				printf(" -- Player %c won the game --\n", player);
-				run = 0;
+int random_advice(char grid[6][7]){
+	int random_number = rand() % 7 + 1;
+	int index = 0;
+	while(1){
+		if(is_move_possible(grid, index % 7)){
+			random_number--;
+			if(random_number <= 0){
+				return index % 7;
 			}
-			if(player == '*')
-				player = 'o';
-			else
-				player = '*';
 		}
-
+		index++;
 	}
-	if(initialSymbol == '*')
-		return 'o';
-	return '*';
 }
 
-char game_vs_ai(char player){
-	srand(time(NULL));
-	char ai;
-	char grid[6][7];
-	createGrid(grid);
+int advanced_advice(char grid[6][7], char player){
+	int longestForPlayer[7], longestForOpponent[7];
+	char opponent;
+	int row;
 	if(player == '*')
-		ai = 'o';
-	else
-		ai = '*';
+		opponent = 'o';
+	else 
+		opponent = '*';
 
-	char run = 1;
-	int move;
-	while(run){
-		printf("\x1b[H\x1b[2J");
-		showGrid(grid);
+	for(int i = 0; i < 7; i++){
+		if(is_move_possible(grid, i)){
+			row = drop_disk(grid, i, player);
+			longestForPlayer[i] = alignment(grid, player);
+			grid[row][i] = opponent;
+			longestForOpponent[i] = alignment(grid, opponent);
+			grid[row][i] = ' ';
+		}
+		else {
+			longestForPlayer[i] = 0;
+			longestForOpponent[i] = 0;
+		}
+	}
 
-		printf("\nYour turn: ", player);
-		scanf("%d", &move);
+	int maxPlayer = 0, maxOpponent = 0;
+	for(int i = 0; i < 7; i++){
+		if(longestForPlayer[i] > maxPlayer){
+			maxPlayer = longestForPlayer[i];
+		}
+		if(longestForOpponent[i] > maxOpponent){
+			maxOpponent = longestForOpponent[i];
+		}
+	}
 
-		if(is_move_possible(grid, move - 1)){
-			drop_disk(grid, move - 1, player);
+	int random_number = rand() % 7 + 1;
+	int index = 0, reccomended;
 
-			if(alignment(grid, player) >= 4){
-				printf("\x1b[H\x1b[2J");
-				showGrid(grid);
-				printf(" -- Player %c won the game --\n", player);
-				run = 0;
+	while(1){
+		if(longestForPlayer[index % 7] == maxPlayer){
+			random_number--;
+			if(random_number <= 0){
+				reccomended = index % 7;
+				break;
 			}
 		}
-
-		drop_disk(grid, advanced_advice(grid, ai), ai);
+		index++;
 	}
-}
 
-int main(void){
-	game_vs_ai('*');
-	return 0;
+	if(maxPlayer >= 4){
+		return reccomended;
+	}
+	else if(maxOpponent >= 4){
+		for(int i = 0; i < 7; i++){
+			if(longestForOpponent[i] == maxOpponent){
+				return i;
+			}
+		}
+	}
+	else
+		return reccomended;
 }
