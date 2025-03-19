@@ -1,8 +1,5 @@
-#include <stdio.h>
-
-int alignment(char list[6][7]){
+int alignment(char list[6][7], char symbol){
 	int i, j, align, longest_alignment = 0;
-	char symbol, longest_alignment_symbol;
 
 	// horizontal
 	for(i = 0; i < 6; i++){
@@ -14,9 +11,8 @@ int alignment(char list[6][7]){
 			else {
 				align = 1;
 			}
-			if((align > longest_alignment) && (list[i][j] != ' ')){
+			if((align > longest_alignment) && (list[i][j] == symbol)){
 				longest_alignment = align;
-				longest_alignment_symbol = list[i][j];
 			}
 		}
 	}
@@ -30,9 +26,8 @@ int alignment(char list[6][7]){
 			else {
 				align = 1;
 			}
-			if((align > longest_alignment) && (list[i][j] != ' ')){
+			if((align > longest_alignment) && (list[i][j] == symbol)){
 				longest_alignment = align;
-				longest_alignment_symbol = list[i][j];
 			}
 		}
 	}
@@ -46,9 +41,8 @@ int alignment(char list[6][7]){
 			else {
 				align = 1;
 			}
-			if((align > longest_alignment) && (list[i][i - j] != ' ')){
+			if((align > longest_alignment) && (list[i][i - j] == symbol)){
 				longest_alignment = align;
-				longest_alignment_symbol = list[i][i - j];
 			}
 		}
 	}
@@ -63,9 +57,8 @@ int alignment(char list[6][7]){
 			else {
 				align = 1;
 			}
-			if((align > longest_alignment) && (list[i][12 - i - j] != ' ')){
+			if((align > longest_alignment) && (list[i][12 - i - j] == symbol)){
 				longest_alignment = align;
-				longest_alignment_symbol = list[i][12 - i - j];
 			}
 		}
 	}
@@ -80,9 +73,8 @@ int alignment(char list[6][7]){
 			else {
 				align = 1;
 			}
-			if((align > longest_alignment) && (list[j - i][j] != ' ')){
+			if((align > longest_alignment) && (list[j - i][j] == symbol)){
 				longest_alignment = align;
-				longest_alignment_symbol = list[j - i][j];
 			}
 		}
 	}
@@ -97,11 +89,10 @@ int alignment(char list[6][7]){
 			else {
 				align = 1;
 			}
-			if((align > longest_alignment) && (list[6 - i - j][j] != ' ')){
+			if((align > longest_alignment) && (list[6 - i - j][j] == symbol)){
 				longest_alignment = align;
-				longest_alignment_symbol = list[6 - i - j][j];
 			}
 		}
 	}
-	return longest_alignment + longest_alignment_symbol * 10;
+	return longest_alignment;
 } // done
