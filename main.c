@@ -12,7 +12,7 @@ void game(char player){
 	char run = 1;
 	int move;
 	while(run){
-		printf("\x1b[H\x1b[2J");
+		//printf("\x1b[H\x1b[2J");
 		showGrid(grid);
 
 		printf("\nPlayer %c's move: ", player);
@@ -21,13 +21,11 @@ void game(char player){
 		if(is_move_possible(grid, move - 1)){
 			drop_disk(grid, move - 1, player);
 
-			if(alignment(grid) % 10 == 4){
-				printf("\n==============\n"
-						"The player %c won\n", (char)(alignment(grid) / 10));
-				run = 0;
+			if(alignment(grid, player) >= 4){
 				showGrid(grid);
+				printf(" -- Player %c won the game --\n", player);
+				run = 0;
 			}
-
 			if(player == '*')
 				player = 'o';
 			else
