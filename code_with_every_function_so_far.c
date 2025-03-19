@@ -384,6 +384,7 @@ void game_vs_ai(char player){
 				showGrid(grid);
 				printf(" -- You won the game --\n");
 				run = 0;
+				break;
 			}
 		}
 
