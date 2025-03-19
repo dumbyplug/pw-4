@@ -41,11 +41,6 @@ int advanced_advice(char grid[6][7], char player){
 		}
 	}
 
-	printf("i  p o\n");
-	for(int i = 0; i < 7; i++){
-		printf("%d. %d %d\n", i, longestForPlayer[i], longestForOpponent[i]);
-	}
-
 	int maxPlayer = 0, maxOpponent = 0;
 	for(int i = 0; i < 7; i++){
 		if(longestForPlayer[i] > maxPlayer){
@@ -55,8 +50,6 @@ int advanced_advice(char grid[6][7], char player){
 			maxOpponent = longestForOpponent[i];
 		}
 	}
-	printf("Max p: %d, o: %o\n", maxPlayer, maxOpponent);
-
 
 	int random_number = rand() % 7 + 1;
 	int index = 0, reccomended;
