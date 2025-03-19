@@ -3,6 +3,8 @@
 #include "move_possible.c"
 #include "create_show.c"
 
+#include <stdlib.h>
+
 void game(char player){
 	char grid[6][7];
 	createGrid(grid);
@@ -10,21 +12,19 @@ void game(char player){
 
 	char run = 1;
 	int move;
-	int *pmove = &move;
 	while(run){
 		showGrid(grid);
 
 		printf("\nPlayer %c's move: ", player);
-		scanf("%d", pmove);
+		scanf("%d", &move);
 
-		if(is_move_possible(grid, move)) 
+		if(is_move_possible(grid, move)){
 			drop_disk(grid, move, player);
-
-
-		if(player == '*')
-			player = 'o';
-		else
-			player = '*';
+			if(player == '*')
+				player = 'o';
+			else
+				player = '*';
+		}
 	}
 }
 

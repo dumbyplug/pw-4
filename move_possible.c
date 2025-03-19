@@ -7,17 +7,15 @@ int is_move_possible(char grid[6][7], int move){
     Output:
         is_possible: either 0 - move is not possible or 1 -move is possible
     */
-    int is_possible = 1;
-
     //invalid move that exceeds the row count
     if ((move < 0) || (move > 6)){
-        is_possible = 0;
+		return 0;
     }
 
     //if 6th row of the grid is empty
     if (grid[0][move] != ' '){
-        is_possible = 0;
+		return 0;
     }
 
-    return is_possible;
+    return 1;
 }
