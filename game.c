@@ -77,10 +77,3 @@ char game_vs_ai(char player) {
         }
     }
 }
-
-int main(void) {
-    srand(time(NULL));  // Initialize randomness once
-    game_vs_ai('*');  // Start the game with player '*'
-    return 0;
-}
-
