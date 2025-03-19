@@ -1,4 +1,12 @@
 int alignment(char list[6][7], char symbol){
+	/*
+	This function checks grid horizantally, vertically and diognally and returns longest same color sequence
+	Input:
+		list[6][7]: a 6x7 matrix with characters
+		symbol: character
+	Output:
+		integer: longest aligned length of given color
+	*/
 	int i, j, align, longest_alignment = 0;
 
 	// horizontal
