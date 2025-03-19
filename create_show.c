@@ -3,6 +3,14 @@
 int x = 6, y = 7;
 
 void createGrid(char grid[6][7]) {
+	/*
+	This function creates grid which is basically playing board of this game
+	Input: 
+		grid[6][7]: a 6x7 matrix consisting of characters
+	Output: 
+		void: it just creates a matrix it doesn't return anything
+	*/
+
 	for (int i = 0; i < x; i++)
 	{
 		for (int j = 0; j < y; j++)
@@ -13,6 +21,13 @@ void createGrid(char grid[6][7]) {
 }
 
 void showGrid(char grid[6][7]) {
+	/*
+	This function shows the grid after each game, after each move
+	Input: 
+		grid[6][7]: a 6x7 matrix filled with characters
+	Output: 
+		void: it prints the grid after eachg move it doesn't return anything
+	*/
 	for (int i = -1; i < x + 1; i++)
 	{
 		for (int j = -1; j < y + 1; j++)
