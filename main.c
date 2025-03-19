@@ -1,6 +1,7 @@
-#include "main.c"
+#include "game.c"
 
 int main() {
+	srand(time(NULL));  // Initialize randomness once
 	char run = 1;
 	int choice = 3;
 	char buffer;
