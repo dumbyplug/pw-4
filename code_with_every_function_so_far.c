@@ -299,6 +299,17 @@ void showGrid(char grid[6][7]) {
 	}
 }
 
+
+// Function to check if it is draw
+int is_grid_full(char grid[6][7]) {
+    for (int col = 0; col < 7; col++) {
+        if (is_move_possible(grid, col)) {
+            return 0; // Grid is not full
+        }
+    }
+    return 1; // Grid is full
+}
+
 char game(char player){
 	/*
 	This function is crated for player vs player interactions. each player gets a turn and they play until one of them creates 4 disks alligned
@@ -314,37 +325,44 @@ char game(char player){
 
 	char run = 1;
 	int move;
-	while(run){
+	while(run && !is_grid_full(grid)){
 		
 		//H cursors comes to the beginning, 2J terminal gets erased
 		printf("\x1b[H\x1b[2J");
 		showGrid(grid);
 		
 		//user gets advice from the computer
-		printf("You can play on %d\n", advanced_advice(grid, player) + 1);
-		printf("\nPlayer %c's move: ", player);
-		scanf("%d", &move);
+		if(is_grid_full(grid) != 1){
+			printf("You can play on %d\n", advanced_advice(grid, player) + 1);
+			printf("\nPlayer %c's move: ", player);
+			scanf("%d", &move);
 
-		//if user's move is possible we drop the disk and count length of alignment
-		if(is_move_possible(grid, move - 1)){
-			drop_disk(grid, move - 1, player);
-			
-			//if user wins it gives a message
-			if(alignment(grid, player) >= 4){
-				printf("\x1b[H\x1b[2J");
-				showGrid(grid);
-				printf(" -- Player %c won the game --\n", player);
-				run = 0;
+			//if user's move is possible we drop the disk and count length of alignment
+			if(is_move_possible(grid, move - 1)){
+				drop_disk(grid, move - 1, player);
+				
+				//if user wins it gives a message
+				if(alignment(grid, player) >= 4){
+					printf("\x1b[H\x1b[2J");
+					showGrid(grid);
+					printf(" -- Player %c won the game --\n", player);
+					run = 0;
+				}
+
+				//next player's turn
+				if(player == '*')
+					player = 'o';
+				else
+					player = '*';
 			}
-
-			//next player's turn
-			if(player == '*')
-				player = 'o';
-			else
-				player = '*';
+		}else{
+			break;
 		}
-
 	}
+	if(is_grid_full(grid) == 1){
+		printf("It's a draw!\n");
+	}
+
 	if(initialSymbol == '*')
 		return 'o';
 	return '*';
@@ -362,39 +380,44 @@ void game_vs_ai(char player){
 	char ai;
 	char grid[6][7];
 	createGrid(grid);
-	if(player == '*')
+	if(player == '*'){
 		ai = 'o';
-	else
+	}else{
 		ai = '*';
-
+	}
 	char run = 1;
 	int move;
-	while(run){
+	while(run && !is_grid_full(grid)){
 		printf("\x1b[H\x1b[2J");
 		showGrid(grid);
 
-		printf("\nYour turn: ", player);
-		scanf("%d", &move);
+		if(is_grid_full(grid) != 1){
+			printf("\nYour turn: ", player);
+			scanf("%d", &move);
 
-		if(is_move_possible(grid, move - 1)){
-			drop_disk(grid, move - 1, player);
+			if(is_move_possible(grid, move - 1)){
+				drop_disk(grid, move - 1, player);
 
-			if(alignment(grid, player) >= 4){
+				if(alignment(grid, player) >= 4){
+					printf("\x1b[H\x1b[2J");
+					showGrid(grid);
+					printf(" -- You won the game --\n");
+					run = 0;
+					break;
+				}
+			}
+
+			drop_disk(grid, advanced_advice(grid, ai), ai);
+			if(alignment(grid, ai) >= 4){
 				printf("\x1b[H\x1b[2J");
 				showGrid(grid);
-				printf(" -- You won the game --\n");
+				printf(" -- Ai won the game --\n");
 				run = 0;
-				break;
 			}
 		}
-
-		drop_disk(grid, advanced_advice(grid, ai), ai);
-		if(alignment(grid, ai) >= 4){
-			printf("\x1b[H\x1b[2J");
-			showGrid(grid);
-			printf(" -- Ai won the game --\n");
-			run = 0;
-		}
+	}
+	if(is_grid_full(grid) == 1){
+		printf("It's a draw!");
 	}
 }
 
@@ -403,6 +426,7 @@ int main() {
 	int choice = 3;
 	char player_char = '*';
 
+	//this loop opens the menu of the game and gives user options
 	while(run){
 		printf("+------ Connect 4 ------+\n"
 			   "|      (1) Start        |\n"
