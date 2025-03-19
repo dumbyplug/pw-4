@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int alingment(char list[6][7]){
+int alignment(char list[6][7]){
 	int i, j, align, longest_alignment = 0;
 	char symbol, longest_alignment_symbol;
 
@@ -86,6 +86,7 @@ int alingment(char list[6][7]){
 			}
 		}
 	}
+	// diagonal right-to-left top
 	for(i = 1; i < 6; i++){
 		align = 1;
 		for(j = 6 - i; j > 0; j--){
@@ -104,21 +105,3 @@ int alingment(char list[6][7]){
 	}
 	return longest_alignment + longest_alignment_symbol * 10;
 } // done
-
-
-int main(void){
-    char grid[6][7]={
-        {' ', 'o', '*', '*', ' ', ' ', ' '},
-        {' ', '*', 'o', ' ', 'o', ' ', ' '},
-        {'*', ' ', ' ', 'o', ' ', ' ', ' '},
-        {' ', '*', ' ', ' ', 'o', 'o', 'o'},
-        {' ', 'o', '*', ' ', ' ', 'o', ' '},
-        {' ', '*', 'o', 'o', 'o', 'o', 'o'},
-    };
-
-	int longest = alingment(grid);
-
-	printf("For character '%c', %d alingment(s)\n", (char)(longest / 10), longest % 10);
-
-	return 0;
-}

@@ -1,29 +1,3 @@
-#include<stdio.h>
-
-int is_move_possible(char grid[6][7], int move);
-
-int main(){
-    char grid[6][7]={
-        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
-    };
-
-    printf("%d\n", is_move_possible(grid, 0));
-
-    drop_disk(grid, 2, '*');
-    for(int i = 0; i < 6; i++){
-        for(int j = 0; j < 7; j++){
-            printf("%c ", grid[i][j]);
-        }printf("\n");
-    }
-
-    return 0;
-}
-
 int is_move_possible(char grid[6][7], int move){
     /*
     This function checks if the move is possible through that column
@@ -36,7 +10,7 @@ int is_move_possible(char grid[6][7], int move){
     int is_possible = 1;
 
     //invalid move that exceeds the row count
-    if (move < 0 || move >6){
+    if ((move < 0) || (move > 6)){
         is_possible = 0;
     }
 

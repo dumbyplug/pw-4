@@ -2,7 +2,6 @@
 
 int x = 6, y = 7;
 
-
 void createGrid(char grid[6][7]) {
 	for (int i = 0; i < x; i++)
 	{
@@ -36,16 +35,4 @@ void showGrid(char grid[6][7]) {
 		}
 		printf("\n");
 	}
-}
-
-
-int main() {
-
-	char grid[6][7];
-
-	createGrid(grid);
-
-	showGrid(grid);
-
-	return 0;
 }
