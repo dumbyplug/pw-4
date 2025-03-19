@@ -64,12 +64,18 @@ char game_vs_ai(char player){
 			if(alignment(grid, player) >= 4){
 				printf("\x1b[H\x1b[2J");
 				showGrid(grid);
-				printf(" -- Player %c won the game --\n", player);
+				printf(" -- You won the game --\n");
 				run = 0;
 			}
 		}
 
 		drop_disk(grid, advanced_advice(grid, ai), ai);
+		if(alignment(grid, ai) >= 4){
+			printf("\x1b[H\x1b[2J");
+			showGrid(grid);
+			printf(" -- Ai won the game --\n");
+			run = 0;
+		}
 	}
 }
 
